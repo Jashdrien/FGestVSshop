@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0">
+        <title>CLIENTES</title>
+        <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+        <link rel="stylesheet" type="text/css" href="/static/empleados.css">
+        <script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
+        
+    </head>
+
+    <body>
+
+        <button type="submit" class="btn1">AÑADIR EMPLEADO</button>
+
+        <div class="lista" id="lista">
+            
+            {% for cln in clientes %}
+                <div class="item-lista" data-cliente-id="{{ cln.id }}">
+                    <div class="box">
+                        <div class="imgbox">
+                            {% if loop.index is even %}
+                                <img src="/static/img/Messages.gif" alt="">
+                            {% else %}
+                                <img src="/static/img/cliente.gif" alt="">
+                            {% endif %}
+                        </div>
+                        <div class="texto">
+                            <p>{{ cln.nombre }}</p>
+                        </div>
+                    </div>
+                    <div class="icono">
+                        <button class="btn", id="btn-edit{{cln.id}}" data-bs-toggle="modal" data-bs-target="#modal{{cln.id}}">
+                            <i class='bx bx-edit edit-icon'></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Modal -->
+                <div class="modal fade" id="modal{{cln.id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">{{cln.nombre}}</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            
+                            <div class="editarreal">
+                            <form action="/editemp/{{cln.id}}", method="POST">
+
+                                <h1 id="act">EDITAR EMPLEADO</h1>
+                                
+                                <div class="input-box11">
+                                    <input type="text" placeholder="Id Empleado" name="id_cliente" value="{{cln.id}}" required>
+                                    <i class='bx bxs-id-card'></i>
+                                </div>
+
+                                <div class="input-box8">
+                                    <input type="text" placeholder="Nombre" name="nombre" value="{{cln.nombre}}" required>
+                                    <i class='bx bxs-user'></i>
+                                </div>
+                
+                                <div class="input-box9">
+                                    <input type="text" placeholder="Numero Telefono" name="numero_de_telefono" value="{{cln.num}}" required>
+                                    <i class='bx bxs-phone'></i>
+                                </div>
+                
+                                <button type="submit" class="btnedit">FINALIZAR</button>
+                
+                                <h1 class="dlt" id="delete">ELIMINAR CLIENTE</h1>
+                
+                                <a href="{{url_for('deleteemp', id=cln.id)}}" class="btn btn-danger btn-sm" id="dltr">ELIMINAR</a>
+
+
+                                
+                                
+                
+                            </form>
+                            </div>
+
+                        </div>
+                        <div class="modal-footer">
+                        </div>
+                    </div>
+                    </div>
+                </div>
+  
+
+
+
+            {% endfor %}
+
+        </div>
+
+        <div class="editar" id="cont">
+            <form action="/emp", method="POST">
+
+                <h1 id="act">EDITAR EMPLEADO</h1>
+
+                <div class="input-box">
+                    <input type="text" placeholder="ID Cliente" name="id_cliente" required>
+                    <i class='bx bxs-id-card'></i>
+                </div>
+
+                <div class="input-box2">
+                    <input type="text" placeholder="Nombre" name="nombre" required>
+                    <i class='bx bxs-user'></i>
+                </div>
+
+                <div class="input-box3">
+                    <input type="text" placeholder="Numero Telefono" name="numero_de_telefono" required>
+                    <i class='bx bxs-phone'></i>
+                </div>
+
+                <button class="btn">FINALIZAR</button>
+
+                <!--<h1 id="delete">DELETE CLIENT</h1>
+
+                <button type="submit" class="deletebtn">DELETE</button>-->
+
+            </form>
+        </div>
+
+        <script>
+            
+
+            var lista = document.getElementById('lista')
+
+            var isAnimationCompleted = false;
+
+            new Sortable(lista, {
+                animation: 350,
+                ghostClass: 'blue-background-class',
+                dragClass: "sortable-drag",
+            });
+
+            
+            var addbutton = document.querySelectorAll('.btn1');
+
+            
+
+            addbutton.forEach(function(add) {
+                add.addEventListener('click', function() {
+                    
+                    lista.classList.add('animated-list');
+                    setTimeout(function() {
+                        lista.classList.add('animated-list-stopped');
+
+                        var act = document.getElementById('act');
+                        act.textContent = 'ADD CLIENT';
+
+                        var cont = document.getElementById('cont');
+                        cont.style.maxHeight = '550px';
+
+                        /*var delet = document.getElementById('delete');
+                        delet.style.display = 'none';
+
+                        var deletbtn = document.getElementById('deletebtn');
+                        deletbtn.style.display = 'none';*/
+
+                        var miDiv = document.getElementById('cont');
+                        miDiv.style.visibility = 'visible';
+
+                        isAnimationCompleted = true;
+                    }, 2000);
+                    
+                });
+            });
+         
+        </script>
+
+    </body>
+
+</html>

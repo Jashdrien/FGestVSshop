@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0">
+        <title>CLIENTES</title>
+        <!-- Icon -->
+        <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+        <!-- Bootstrap -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+        <!-- DataTable -->
+        <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap5.min.css" />
+        <!-- Custom CSS -->
+        <link rel="stylesheet" type="text/css" href="/static/StyleTables.css">
+    </head>
+
+    <body>
+    
+        <div class="container my-4">
+            <div class="row">
+                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
+
+                    <main class="table">
+                            <section class="table__header">
+                                <h1>Clientes</h1>
+                                <button class="btnAdd" href="{{  url_for('AddClientes')  }}" id="AddClientes" data-bs-toggle="modal" data-bs-target="#modalAdd">
+                                    <i class='bx bx-message-square-add'></i>
+                                </button>
+                            </section>
+                            <section class="table__body">
+                                <table id="datatable_users" class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>Cedula</th>
+                                            <th>Nombre</th>
+                                            <th>Contacto</th>
+                                            <th>Ubicacion</th>
+                                            <th>Acciones</th>
+                                        </tr>
+                                    </thead>
+                                    
+                                    <tbody>
+
+                                        {% for cln in clientes %}
+
+                                        <tr>
+                                            <td class="centered">{{cln.id_cliente}}</td>
+                                            <td class="centered">{{cln.nombre}}</td>
+                                            <td class="centered">{{cln.contacto}}</td>
+                                            <td class="centered">{{cln.ubicacion}}</td>
+                                            <td class="centered">
+                                                <!-- Editar -->
+                                                <button class="btn" href="{{  url_for('EditCliente', id=cln.id_cliente)  }}" id="EditCliente{{cln.id_cliente}}" data-bs-toggle="modal" data-bs-target="#modal{{cln.id_cliente}}">
+                                                    <i class='bx bx-edit'></i>
+                                                </button>
+                                                <!-- Eliminar -->
+                                                <a href="#" class="btn" onclick="confirmarEliminarCliente('{{cln.id_cliente}}');">
+                                                    <i class='bx bx-trash'></i>
+                                                </a>
+                                                
+                                                
+                                                    
+                                            </td>
+                                        </tr>
+
+                                        <!--Modal -->
+                                        <div class="modal fade" id="modal{{cln.id_cliente}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h1 class="modal-title fs-5" id="exampleModalLabel">Cliente</h1>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+                                                    
+                                                    <div class="modal-body">
+                                                        <div class="editarreal">
+                                                            <form action="/EditCliente/{{cln.id_cliente}}", method="POST">
+                                                                
+                                                                <h1 id="act">EDITAR CLIENTE</h1>
+                                                        
+                                                                <div class="input-box11">
+                                                                    <input type="text" placeholder="Nombre" name="Nombre" value="{{cln.nombre}}" required>
+                                                                    <i class='bx bxs-user'></i>
+                                                                </div>
+
+                                                                <div class="input-box11">
+                                                                    <input type="text" placeholder="Contacto" name="Contacto" value="{{cln.contacto}}" required>
+                                                                    <i class='bx bxs-phone'></i>
+                                                                </div>
+                                        
+                                                                <div class="input-box11">
+                                                                    <input type="text" placeholder="Ubicacion" name="Ubicacion" value="{{cln.ubicacion}}" required>
+                                                                    <i class='bx bxs-map'></i>
+                                                                </div>
+                                        
+                                                                <button type="submit" class="btnedit">FINALIZAR</button>
+                                        
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        {% endfor %}
+
+                                    </tbody>
+                                    
+                                    <caption>
+                                        GestVShop
+                                    </caption>
+                        
+                                </table>
+                                <!--Modal -->
+                                <div class="modal fade" id="modalAdd" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h1 class="modal-title fs-5" id="exampleModalLabel">Cliente</h1>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            
+                                            <div class="modal-body">
+                                                <div class="editarreal">
+                                                    <form action="/AddCliente", method="POST">
+                                                        
+                                                        <h1 id="act">AÑADIR CLIENTE</h1>
+                                                        
+                                                        <div class="input-box11">
+                                                            <input type="text" placeholder="Cedula" name="Cedula" value="" required>
+                                                            <i class='bx bxs-id-card'></i>
+                                                        </div>
+
+                                                        <div class="input-box11">
+                                                            <input type="text" placeholder="Nombre" name="Nombre" value="" required>
+                                                            <i class='bx bxs-user'></i>
+                                                        </div>
+
+                                                        <div class="input-box11">
+                                                            <input type="text" placeholder="Contacto" name="Contacto" value="" required>
+                                                            <i class='bx bxs-phone'></i>
+                                                        </div>
+                                
+                                                        <div class="input-box11">
+                                                            <input type="text" placeholder="Ubicacion" name="Ubicacion" value="" required>
+                                                            <i class='bx bxs-map'></i>
+                                                        </div>
+                                
+                                                        <button type="submit" class="btnedit">FINALIZAR</button>
+                                
+                                                    </form>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+
+                    </main>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- jQuery -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <!-- DataTable -->
+        <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+        <script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"></script>
+
+        <script>
+            dataTable = $("#datatable_users").DataTable({});
+        </script>
+
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+        <script>
+        function confirmarEliminarCliente(id) {
+            Swal.fire({
+                title: '¿Estás seguro?',
+                text: '¿Estás seguro de que deseas eliminar este cliente?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Sí, eliminar',
+                cancelButtonText: 'Cancelar'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Si el usuario confirma, redirecciona a la ruta para eliminar el cliente
+                    window.location.href = "/DelCliente/" + id;
+                }
+            });
+        }
+        </script>
+
+    </body>
+
+</html>

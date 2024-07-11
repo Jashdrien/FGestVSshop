@@ -1,0 +1,542 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'MuseoModerno', sans-serif;
+    text-decoration: none;
+    list-style: none;
+}
+
+:root{
+    --text-color: #000000;
+    --bg-color: #e5e5e5;
+    --main-color: #f29494;
+    --other-color: #868686;
+    --second-color: #fff;
+    --big-font: 5.5rem;
+    --p-font: 1rem;
+    --ea: #b9a6a6;
+}
+
+body{
+    /*overflow: hidden;*/
+    background: var(--ea);
+    color: var(--text-color);
+    /*height: 100vh;*/
+    width: 100%;
+    display: flex;
+    flex-direction: row; /* Debería ser column para que los elementos se apilen verticalmente */
+    justify-content: center;
+} 
+
+.btn1 {
+    position: relative;
+    top: 30px;
+    right: 40px;
+    width: 130px;
+    height: 45px;
+    border: none;
+    outline: none;
+    border-radius: 40px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, .1);
+    cursor: pointer;
+    font-size: 16px;
+    color: #333;
+    font-weight: 600;
+    background: #e0e0e0;
+    box-shadow: 21px 21px 40px #b3b3b3, -21px 21px 40px #fff;
+}
+
+
+.lista {
+    position: relative;
+    width: 500px; /* Ajusta el valor de width según sea necesario */
+    top: 100px;
+    left: 200px;
+    overflow: hidden;
+    /*white-space: nowrap;*/
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    border-radius: 56px;
+    background: #e0e0e0;
+    box-shadow: 21px 21px 40px #b3b3b3, -21px 21px 40px #fff;
+}
+
+.lista .item-lista {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 400px; /* Ajusta el valor de width según sea necesario */
+    height: 80px;
+    margin: 15px;
+    border-radius: 56px;
+    background: linear-gradient(145deg #cacaca, #f0f0f0);
+    box-shadow: 21px 21px 40px #b3b3b3, -21px -21px 40px #fff;
+    transition: transform 0.5s ease-in-out;
+}
+
+
+.lista .item-lista .box{
+    display: flex;
+    align-items: center;
+    justify-content: space-between ;
+}
+
+.lista .item-lista .box .imgbox{
+    position: relative;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-left: 10px;
+}
+
+.lista .item-lista .box .imgbox img{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.lista .item-lista .box .texto{
+    font-weight: 600;
+    color: #2a2a2a;
+    margin-left: 20px;
+}
+
+.lista .item-lista .icono{
+    margin: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.lista .item-lista .icono i{
+    font-size: 1.5rem;
+    transform: translateY(-5px) scale(1.1);
+}
+
+.sortable-drag{
+    opacity: 0;
+}
+
+/* Establece la animación de desplazamiento */
+@keyframes desplazamientoIzquierda {
+    from {
+        transform: translateX(0);
+    }
+    to {
+        transform: translateX(-80%);
+    }
+}
+
+/* Aplica la animación a la clase .animated-list */
+.animated-list {
+    animation: desplazamientoIzquierda 2s ease-in-out forwards;
+}
+/* Estilo para aplicar después de la animación */
+.animated-list-stopped {
+    animation: none; /* Detiene la animación */
+    transform: translateX(-80%); /* Establece la posición final */
+}
+
+
+/*editar*/
+
+
+.editar {
+    display: flex;
+    max-height: 550px;
+    justify-content: center;
+    align-items: center;
+    visibility: hidden;
+    position: relative;
+    top: 100px;
+    width: 420px;
+    background: #471818;
+    border: 2px solid rgba(255, 255, 255, .2);
+    backdrop-filter: blur(20px);
+    box-shadow: 0 0 10px rgba(0, 0, 0, .2);
+    color: #fff;
+    border-radius: 10px;
+    padding: 30px 40px;
+}
+
+.editar #delete{
+    position: relative;
+    top: 20px;
+    font-size: 36px;
+    text-align: center;
+}
+
+.editar h1{
+    font-size: 36px;
+    text-align: center;
+}
+
+.editar .input-box {
+    position: relative;
+    width: 100%;
+    height: 50px;
+    margin: 30px 0;
+}
+
+.input-box input {
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    border: none;
+    outline: none;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-radius: 40px;
+    font-size: 16px;
+    color: #fff;
+    padding: 20px 45px 20px;
+}
+
+.input-box input::placeholder {
+    color: #fff;
+}
+
+.input-box i{
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 20px;
+}
+
+/*input2*/
+
+
+.editar .input-box2 {
+    position: relative;
+    width: 100%;
+    height: 50px;
+    margin: 30px 0;
+}
+
+.input-box2 input {
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    border: none;
+    outline: none;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-radius: 40px;
+    font-size: 16px;
+    color: #fff;
+    padding: 20px 45px 20px;
+}
+
+.input-box2 input::placeholder {
+    color: #fff;
+}
+
+.input-box2 i{
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 20px;
+}
+
+/*input3*/
+
+
+.editar .input-box3 {
+    position: relative;
+    width: 100%;
+    height: 50px;
+    margin: 30px 0;
+}
+
+.input-box3 input {
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    border: none;
+    outline: none;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-radius: 40px;
+    font-size: 16px;
+    color: #fff;
+    padding: 20px 45px 20px;
+}
+
+.input-box3 input::placeholder {
+    color: #fff;
+}
+
+.input-box3 i{
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 20px;
+}
+
+/*input4*/
+
+
+.editar .input-box4 {
+    position: relative;
+    width: 100%;
+    height: 50px;
+    margin: 30px 0;
+}
+
+.input-box4 input {
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    border: none;
+    outline: none;
+    border: 2px solid rgba(255, 255, 255, .2);
+    border-radius: 40px;
+    font-size: 16px;
+    color: #fff;
+    padding: 20px 45px 20px;
+}
+
+.input-box4 input::placeholder {
+    color: #fff;
+}
+
+.input-box4 i{
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 20px;
+}
+
+.editar .btn {
+    width: 100%;
+    height: 45px;
+    background: #fff;
+    border: none;
+    outline: none;
+    border-radius: 40px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, .1);
+    cursor: pointer;
+    font-size: 16px;
+    color: #333;
+    font-weight: 600;
+}
+
+.editar #deletebtn{
+    position: relative;
+    top: 40px;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 45px;
+    background: #fff;
+    border: none;
+    outline: none;
+    border-radius: 40px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, .1);
+    cursor: pointer;
+    font-size: 16px;
+    color: #333;
+    font-weight: 600;
+}
+
+
+
+
+/*---------------------------------------------------modal*/
+/*modal*/
+
+.modal-body{
+    background: #471818;
+    justify-content: center;
+    align-items: center;
+    height: 550px;
+}
+
+.editarreal h1{
+    font-size: 36px;
+    text-align: center;
+    color: #fff;
+}
+
+
+.editarreal .input-box11 {
+    position: relative;
+    width: 100%;
+    height: 50px;
+    margin: 30px 0;
+}
+
+.input-box11 input {
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    border: none;
+    outline: none;
+    border: 2px solid #fff;
+    border-radius: 40px;
+    font-size: 16px;
+    color: #fff;
+    padding: 20px 45px 20px;
+}
+
+.input-box11 input::placeholder {
+    color: #fff;
+}
+
+.input-box11 i{
+    color: #fff;
+    position: relative;
+    left: 15px;
+    top: 10px;
+    transform: translateY(-230%);
+    font-size: 20px;
+}
+
+/**/
+
+.editarreal .input-box8 {
+    position: relative;
+    width: 100%;
+    height: 50px;
+    margin: 30px 0;
+}
+
+.input-box8 input {
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    border: none;
+    outline: none;
+    border: 2px solid #fff;
+    border-radius: 40px;
+    font-size: 16px;
+    color: #fff;
+    padding: 20px 45px 20px;
+}
+
+.input-box8 input::placeholder {
+    color: #fff;
+}
+
+.input-box8 i{
+    color: #fff;
+    position: relative;
+    left: 15px;
+    top: 10px;
+    transform: translateY(-230%);
+    font-size: 20px;
+}
+
+/**/
+.editarreal .input-box10 {
+    position: relative;
+    width: 100%;
+    height: 50px;
+    margin: 30px 0;
+}
+
+.input-box10 input {
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    border: none;
+    outline: none;
+    border: 2px solid #fff;
+    border-radius: 40px;
+    font-size: 16px;
+    color: #fff;
+    padding: 20px 45px 20px;
+}
+
+.input-box10 input::placeholder {
+    color: #fff;
+}
+
+.input-box10 i{
+    color: #fff;
+    position: relative;
+    left: 15px;
+    top: 10px;
+    transform: translateY(-230%);
+    font-size: 20px;
+}
+/**/
+
+.editarreal .input-box9 {
+    position: relative;
+    width: 100%;
+    height: 50px;
+    margin: 30px 0;
+}
+
+.input-box9 input {
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    border: none;
+    outline: none;
+    border: 2px solid #fff;
+    border-radius: 40px;
+    font-size: 16px;
+    color: #fff;
+    padding: 20px 45px 20px;
+}
+
+.input-box9 input::placeholder {
+    color: #fff;
+}
+
+.input-box9 i{
+    color: #fff;
+    position: relative;
+    left: 15px;
+    top: 10px;
+    transform: translateY(-230%);
+    font-size: 20px;
+}
+
+.editarreal .btnedit {
+    width: 100%;
+    height: 45px;
+    background: #fff;
+    border: none;
+    outline: none;
+    border-radius: 40px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, .1);
+    cursor: pointer;
+    font-size: 16px;
+    color: #333;
+    font-weight: 600;
+}
+.editarreal .dlt{
+    position: relative;
+    top: 20px;
+    font-size: 36px;
+    text-align: center;
+}
+.editarreal #dltr{
+    position: relative;
+    top: 40px;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 45px;
+    background: #fff;
+    border: none;
+    outline: none;
+    border-radius: 40px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, .1);
+    cursor: pointer;
+    font-size: 16px;
+    color: #333;
+    font-weight: 600;
+}

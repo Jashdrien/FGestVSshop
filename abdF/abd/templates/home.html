@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0">
+        <title>HOME</title>
+        <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+        <link rel="stylesheet" type="text/css" href="/static/stylehome.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=MuseoModerno:wght@100;300;600;900&display=swap" rel="stylesheet">
+    </head>
+
+    <body>
+
+        <header>
+
+            <a href="#" class="logo"><i class='bx bx-store'></i>GestVShop</a>
+
+            <ul class="navlist">
+                <li><a href="clientes">CLIENTES</a></li>
+                <li><a href="empleados">EMPLEADOS</a></li>
+                <li><a href="productos1">PRODUCTOS</a></li>
+                <li><a href="factura">INGRESO</a></li>
+            </ul>
+
+            <div class="hmain">
+                <a href="dashboard" class="btn">DASHBOARD</a>
+                <div class="bx bx-menu" id="menu-icon"></div>
+                <div class="bx bx-moon" id="darkmode"></div>
+            </div>
+
+        </header>
+
+        <section class="hero">
+            <div class="herotext">
+                <h1>Nashi Shop</h1>
+                <h4>Administración efectiva de tus datos</h4>
+                <P>Gestion de Invetariado, Registo de Ingresos y Egresos.</P>
+                <div class="heroin">
+                    <div class="box" id="x1">
+                        <h3>Cliente</h3>
+                        <h5>Elemento</h5>
+                        <img src="/static/img/cliente.gif">
+                    </div>
+                    <div class="box" id="x2">
+                        <h3>Empleado</h3>
+                        <h5>Elemento</h5>
+                        <img src="/static/img/empleados.gif">
+                    </div>
+                    <div class="box" id="x3">
+                        <h3>Producto</h3>
+                        <h5>Elemento</h5>
+                        <img src="/static/img/261682B6o6AlZs.gif">
+                    </div>
+                </div>
+            </div>
+
+            <div class="heroimg">
+                <img src="/static/img/prod.gif">
+            </div>
+        </section>
+
+        <script>
+            var boxes = document.querySelectorAll('.box');
+
+            boxes.forEach(function(box) {
+                box.addEventListener('click', function() {
+                    var boxId = this.id;
+                    
+                    console.log("Caja clicada con ID:", boxId);
+
+                    switch (boxId) {
+                        case 'x1':
+                            console.log("Redirigiendo a /cliente");
+                            window.location.href = '/clientes';
+                            break;
+                        case 'x2':
+                            console.log("Redirigiendo a /empleado");
+                            window.location.href = '/empleados';
+                            break;
+                        case 'x3':
+                            console.log("Redirigiendo a /producto");
+                            window.location.href = '/productos1';
+                            break;
+                        default:
+                            console.log("No se encontró ninguna acción para la caja con ID:", boxId);
+                    }
+                });
+            });
+
+
+            let darkmode = document.querySelector('#darkmode');
+            darkmode.onclick = () => {
+                if(darkmode.classList.contains('bx-moon')){
+                    darkmode.classList.replace('bx-moon', 'bx-sun');
+                    document.body.classList.add('color');
+                }else{
+                    darkmode.classList.replace('bx-sun', 'bx-moon');
+                    document.body.classList.remove('color');
+                }
+            }
+        </script>
+
+    </body>
+
+</html>
+
